@@ -1,13 +1,19 @@
 plugins {
     id 'com.android.application'
     id 'org.jetbrains.kotlin.android'
+    id 'kotlin-parcelize'
+    id 'kotlin-kapt'
 }
 
 android {
     namespace 'com.example.demovieexpert'
     compileSdk 33
+    buildFeatures {
+        viewBinding true
+    }
 
     defaultConfig {
+        buildConfigField("String", "APIKEY", '"eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiI2MDIwOTdiMmIyZjllYzE5NGJjN2UxNTgwNjNiMGQ2NiIsInN1YiI6IjYxZjY3ZmQ3NTU5ZDIyMDBjN2M5ZWM2ZiIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.hov24JGESfmfvg8qcp_h2alJyfVW8dCMN-c4JtzKxzE"')
         applicationId "com.example.demovieexpert"
         minSdk 24
         targetSdk 33
@@ -41,4 +47,16 @@ dependencies {
     testImplementation 'junit:junit:4.13.2'
     androidTestImplementation 'androidx.test.ext:junit:1.1.5'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.5.1'
+    implementation "com.github.bumptech.glide:glide:4.15.1"
+
+    implementation "androidx.room:room-runtime:$room_version"
+    kapt "androidx.room:room-compiler:$room_version"
+    androidTestImplementation "androidx.room:room-testing:$room_version"
+
+    implementation "androidx.lifecycle:lifecycle-viewmodel-ktx:2.5.1"
+
+
+    implementation "com.squareup.retrofit2:retrofit:$retrofit_version"
+    implementation "com.squareup.retrofit2:converter-gson:$retrofit_version"
+    implementation "com.squareup.okhttp3:logging-interceptor:$logging_interceptor_version"
 }
