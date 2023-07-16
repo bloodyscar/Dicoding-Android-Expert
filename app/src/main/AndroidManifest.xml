@@ -15,10 +15,6 @@
         android:theme="@style/Theme.DeMovieExpert"
         tools:targetApi="31">
         <activity
-            android:name=".favourited.FavouritedActivity"
-            android:parentActivityName=".main.MainActivity"
-            android:exported="false" />
-        <activity
             android:name=".detail.DetailActivity"
             android:exported="false"
             android:parentActivityName=".main.MainActivity" />

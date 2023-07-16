@@ -15,3 +15,4 @@ dependencyResolutionManagement {
 rootProject.name = "De Movie Expert"
 include ':app'
 include ':core'
+include ':favorite'

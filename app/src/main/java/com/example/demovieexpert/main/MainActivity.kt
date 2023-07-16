@@ -1,6 +1,7 @@
 package com.example.demovieexpert.main
 
 import android.content.Intent
+import android.net.Uri
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
@@ -11,11 +12,9 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.StaggeredGridLayoutManager
 import com.example.demovieexpert.R
-import com.example.demovieexpert.core.data.Resource
 import com.example.demovieexpert.databinding.ActivityMainBinding
 import com.example.demovieexpert.core.ui.ListMovieAdapter
 import com.example.demovieexpert.detail.DetailActivity
-import com.example.demovieexpert.favourited.FavouritedActivity
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class MainActivity : AppCompatActivity() {
@@ -78,8 +77,8 @@ class MainActivity : AppCompatActivity() {
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         when (item.itemId) {
             R.id.action_fav -> {
-                val intent = Intent(this, FavouritedActivity::class.java)
-                startActivity(intent)
+                val uri = Uri.parse("demovieexpert://favorite")
+                startActivity(Intent(Intent.ACTION_VIEW, uri))
             }
         }
         return super.onOptionsItemSelected(item)

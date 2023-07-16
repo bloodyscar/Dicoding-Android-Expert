@@ -1,6 +1,4 @@
-package com.example.demovieexpert.core.di
 
-import FavouritedViewModel
 import com.example.demovieexpert.core.domain.usecase.MovieInteractor
 import com.example.demovieexpert.core.domain.usecase.MovieUseCase
 import com.example.demovieexpert.detail.DetailViewModel
@@ -14,6 +12,5 @@ val useCaseModule = module {
 
 val viewModelModule = module {
     viewModel { MainViewModel(get()) }
-    viewModel { FavouritedViewModel(get()) }
     viewModel { DetailViewModel(get()) }
 }
