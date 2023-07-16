@@ -15,8 +15,8 @@
     <application>
         <activity
             android:name=".FavoriteActivity"
-            android:exported="true"
-            android:parentActivityName="com.example.demovieexpert.main.MainActivity" >
+            android:parentActivityName="com.example.demovieexpert.main.MainActivity"
+            android:exported="true">
 
             <intent-filter>
                 <action android:name="android.intent.action.VIEW"
