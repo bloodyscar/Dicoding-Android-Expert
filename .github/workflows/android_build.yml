@@ -19,6 +19,9 @@ jobs:
 
       - name: Setup Android SDK
         uses: android-actions/setup-android@v2
+        with:
+          distribution: 'cmdline-tools'
+          cmd-version: 'latest'
 
       - name: Build SampleApplication
         run: ./gradlew --no-daemon build
