@@ -1,0 +1,28 @@
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="com.example.demovieexpert.test">
+
+    <application
+        android:label="Your App Test"
+        android:icon="@mipmap/ic_launcher">
+
+        <!-- This specifies the test runner to use for instrumentation tests -->
+        <instrumentation
+            android:name="androidx.test.runner.AndroidJUnitRunner"
+            android:targetPackage="com.example.demovieexpert" />
+
+        <!-- Add explicit android:exported="false" for the InstrumentationActivityInvoker components -->
+        <activity
+            android:name="androidx.test.core.app.InstrumentationActivityInvoker$BootstrapActivity"
+            android:exported="true" />
+
+        <activity
+            android:name="androidx.test.core.app.InstrumentationActivityInvoker$EmptyActivity"
+            android:exported="true" />
+
+        <activity
+            android:name="androidx.test.core.app.InstrumentationActivityInvoker$EmptyFloatingActivity"
+            android:exported="true" />
+
+    </application>
+
+</manifest>
