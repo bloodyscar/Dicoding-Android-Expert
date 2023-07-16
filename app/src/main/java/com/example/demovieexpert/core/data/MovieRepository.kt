@@ -10,57 +10,50 @@ import com.example.demovieexpert.core.data.source.remote.response.ResultsItem
 import com.example.demovieexpert.core.domain.model.Movies
 import com.example.demovieexpert.core.utils.AppExecutors
 import com.example.demovieexpert.core.utils.DataMapper
+import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.map
 
-class MovieRepository private constructor(
+class MovieRepository(
     private val remoteDataSource: RemoteDataSource,
     private val localDataSource: LocalDataSource,
     private val appExecutors: AppExecutors
 
 ) : IMovieRepository {
-    override fun getAllMovie(): LiveData<Resource<List<Movies>>> =
+    override fun getAllMovie(): Flow<Resource<List<Movies>>> =
         object : NetworkBoundResource<List<Movies>, List<ResultsItem>>(appExecutors) {
-            override fun loadFromDB(): LiveData<List<Movies>> {
-                return Transformations.map(localDataSource.getAllMovie()) {
+            override fun loadFromDB(): Flow<List<Movies>> {
+                return localDataSource.getAllMovie().map {
                     DataMapper.mapEntitiesToDomain(it)
                 }
             }
 
             override fun shouldFetch(data: List<Movies>?): Boolean =
-//                data == null || data.isEmpty()
-                false // ganti dengan true jika ingin selalu mengambil data dari internet
+                data == null || data.isEmpty()
 
-            override fun createCall(): LiveData<ApiResponse<List<ResultsItem>>> =
+            override suspend fun createCall(): Flow<ApiResponse<List<ResultsItem>>> =
                 remoteDataSource.getAllMovie()
 
-            override fun saveCallResult(data: List<ResultsItem>) {
+            override suspend fun saveCallResult(data: List<ResultsItem>) {
                 val movieList = DataMapper.mapResponsesToEntities(data)
                 localDataSource.insertMovie(movieList)
             }
-        }.asLiveData()
+        }.asFlow()
 
-    override fun getFavoriteMovie(): LiveData<List<Movies>> {
-        return Transformations.map(localDataSource.getFavoriteMovie()) {
+    override fun getFavoriteMovie(): Flow<List<Movies>> {
+        return localDataSource.getFavoriteMovie().map {
             DataMapper.mapEntitiesToDomain(it)
         }
     }
 
-    override fun setFavoriteMovie(tourism: Movies, state: Boolean) {
-        val tourismEntity = DataMapper.mapDomainToEntity(tourism)
-        appExecutors.diskIO().execute { localDataSource.setFavoriteMovie(tourismEntity, state) }
+    override fun setFavoriteMovie(movie: Movies, state: Boolean) {
+        val moviesEntity = DataMapper.mapDomainToEntity(movie)
+        appExecutors.diskIO().execute { localDataSource.setFavoriteMovie(moviesEntity, state) }
     }
 
 
     companion object {
         @Volatile
         private var instance: MovieRepository? = null
-        fun getInstance(
-            remoteDataSource: RemoteDataSource,
-            localDataSource: LocalDataSource,
-            appExecutors: AppExecutors
-        ): MovieRepository =
-            instance ?: synchronized(this) {
-                instance ?: MovieRepository(remoteDataSource, localDataSource, appExecutors)
-            }.also { instance = it }
     }
 
 

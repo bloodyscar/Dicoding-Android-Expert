@@ -9,10 +9,10 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.StaggeredGridLayoutManager
 import com.example.demovieexpert.databinding.ActivityFavouritedBinding
-import com.example.demovieexpert.core.ui.ViewModelFactory
+import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class FavouritedActivity : AppCompatActivity() {
-    private lateinit var favouriteVM: FavouritedViewModel
+    private val favouriteVM: FavouritedViewModel by viewModel()
     private var _binding: ActivityFavouritedBinding? = null
     private val binding get() = _binding!!
 
@@ -24,8 +24,6 @@ class FavouritedActivity : AppCompatActivity() {
         val layoutManager = StaggeredGridLayoutManager(2, LinearLayoutManager.VERTICAL)
         binding.rvFav.layoutManager = layoutManager
 
-        val factory = ViewModelFactory.getInstance(this)
-        favouriteVM = ViewModelProvider(this, factory)[FavouritedViewModel::class.java]
 
         favouriteVM.getAllFav.observe(this) { result ->
             if ( result.isNotEmpty() ){

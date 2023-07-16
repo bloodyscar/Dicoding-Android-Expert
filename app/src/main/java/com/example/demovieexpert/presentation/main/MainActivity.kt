@@ -12,12 +12,12 @@ import androidx.recyclerview.widget.StaggeredGridLayoutManager
 import com.example.demovieexpert.R
 import com.example.demovieexpert.core.data.Resource
 import com.example.demovieexpert.databinding.ActivityMainBinding
-import com.example.demovieexpert.core.ui.ViewModelFactory
 import com.example.demovieexpert.core.ui.ListMovieAdapter
 import com.example.demovieexpert.presentation.favourited.FavouritedActivity
+import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class MainActivity : AppCompatActivity() {
-    private lateinit var mainViewModel: MainViewModel
+    private val mainViewModel: MainViewModel by viewModel()
     private var _binding: ActivityMainBinding? = null
     private val binding get() = _binding!!
 
@@ -29,8 +29,6 @@ class MainActivity : AppCompatActivity() {
         val layoutManager = StaggeredGridLayoutManager(2, LinearLayoutManager.VERTICAL)
         binding.rvMain.layoutManager = layoutManager
 
-        val factory = ViewModelFactory.getInstance(this)
-        mainViewModel = ViewModelProvider(this, factory)[MainViewModel::class.java]
 
         mainViewModel.movie.observe(this) { result ->
             if ( result != null ){

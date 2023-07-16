@@ -7,24 +7,19 @@ import androidx.core.content.ContextCompat
 import androidx.lifecycle.ViewModelProvider
 import com.bumptech.glide.Glide
 import com.example.demovieexpert.R
-import com.example.demovieexpert.core.data.source.local.entity.MovieEntity
-import com.example.demovieexpert.core.data.source.remote.response.ResultsItem
 import com.example.demovieexpert.core.domain.model.Movies
 import com.example.demovieexpert.databinding.ActivityDetailBinding
-import com.example.demovieexpert.core.ui.ViewModelFactory
+import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class DetailActivity : AppCompatActivity() {
     private var _binding: ActivityDetailBinding? = null
     private val binding get() = _binding!!
-    private lateinit var detailViewModel: DetailViewModel
+    private val detailViewModel: DetailViewModel by viewModel()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         _binding = ActivityDetailBinding.inflate(layoutInflater)
         setContentView(binding.root)
-
-        val factory = ViewModelFactory.getInstance(this)
-        detailViewModel = ViewModelProvider(this, factory)[DetailViewModel::class.java]
 
         val listMovieResponse = intent.getParcelableExtra<Movies>("list_movie")
         binding.apply {
@@ -37,6 +32,11 @@ class DetailActivity : AppCompatActivity() {
                 var statusFavorite = listMovieResponse.isFavorite
                 setStatusFavorite(statusFavorite)
                 binding.fab.setOnClickListener {
+                    if(statusFavorite) {
+                        Toast.makeText(this@DetailActivity, "Removed from Favorite", Toast.LENGTH_SHORT).show()
+                    } else {
+                        Toast.makeText(this@DetailActivity, "Added to Favorite", Toast.LENGTH_SHORT).show()
+                    }
                     statusFavorite = !statusFavorite
                     detailViewModel.setFavoriteMovie(listMovieResponse, statusFavorite)
                     setStatusFavorite(statusFavorite)

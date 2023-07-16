@@ -15,20 +15,6 @@ abstract class MovieDatabase : RoomDatabase() {
         @Volatile
         private var INSTANCE : MovieDatabase? = null
 
-        @JvmStatic
-        fun getInstance(context: Context): MovieDatabase =
-            INSTANCE ?: synchronized(this) {
-                val instance = Room.databaseBuilder(
-                    context.applicationContext,
-                    MovieDatabase::class.java,
-                    "movies_db"
-                )
-                    .fallbackToDestructiveMigration()
-                    .build()
-                INSTANCE = instance
-                instance
-            }
-
 
     }
 
