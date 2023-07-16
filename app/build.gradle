@@ -9,7 +9,7 @@ apply from: '../shared_dependencies.gradle'
 
 android {
     namespace 'com.example.demovieexpert'
-    compileSdk 31
+    compileSdk 34
     buildFeatures {
         viewBinding true
     }
@@ -18,7 +18,7 @@ android {
         buildConfigField("String", "APIKEY", '"eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiI2MDIwOTdiMmIyZjllYzE5NGJjN2UxNTgwNjNiMGQ2NiIsInN1YiI6IjYxZjY3ZmQ3NTU5ZDIyMDBjN2M5ZWM2ZiIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.hov24JGESfmfvg8qcp_h2alJyfVW8dCMN-c4JtzKxzE"')
         applicationId "com.example.demovieexpert"
         minSdk 24
-        targetSdk 31
+        targetSdk 34
         versionCode 1
         versionName "1.0"
 
