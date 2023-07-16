@@ -14,11 +14,6 @@ android {
         targetSdk 31
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
-        manifestPlaceholders = [
-                "core_activity_exported": "false",
-                "core_empty_activity_exported": "false",
-                "core_empty_floating_activity_exported": "false"
-        ]
         consumerProguardFiles "consumer-rules.pro"
     }
 
