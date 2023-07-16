@@ -7,11 +7,11 @@ plugins {
 apply from: '../shared_dependencies.gradle'
 android {
     namespace 'com.example.demovieexpert.core'
-    compileSdk 33
+    compileSdk 31
 
     defaultConfig {
         minSdk 24
-        targetSdk 33
+        targetSdk 31
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
         manifestPlaceholders = [
